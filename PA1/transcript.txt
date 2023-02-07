@@ -1,0 +1,28 @@
+Converter Method output runs
+
+Tester Library v.3.0
+-----------------------------------
+Tests defined in the class: DesignRecipeExamples:
+---------------------------
+DesignRecipeExamples:
+---------------
+new DesignRecipeExamples:1(
+ this.celsiusTest1 = 278
+ this.celsiusTest2 = 305)
+---------------
+No test methods found.
+
+
+Combiner Method output runs
+
+Tester Library v.3.0
+-----------------------------------
+Tests defined in the class: DesignRecipeExamples:
+---------------------------
+DesignRecipeExamples:
+---------------
+new DesignRecipeExamples:1(
+ this.pennyTest1 = 2054
+ this.pennyTest2 = 6)
+---------------
+No test methods found.
