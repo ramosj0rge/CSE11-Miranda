@@ -12,7 +12,7 @@ class TextTweet{
     }
 
     boolean hasLike(){
-        return likes <= 1;
+        return likes <= 1; //this.likes?
     }
 
     String firstMention(){
@@ -28,5 +28,19 @@ class ReplyTweet{
 
     ReplyTweet(TextTweet replyTo, String contents, int likes){
         this.replyTo = replyTo;
+        this.contents = contents;
+        this.likes = likes;
+    }
+
+    boolean morePopularReply(){
+        return this.likes > replyTo.likes;
+    }
+
+    int allLikes(){
+        return this.likes + replyTo.likes;
+    }
+
+    boolean hasMention(String username){
+        return contents.contains("@" + username) || replyTo.contents.contains("@" + username);
     }
 }
