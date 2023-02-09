@@ -1,4 +1,3 @@
-
 class A{
     int f1;
     String f2;
