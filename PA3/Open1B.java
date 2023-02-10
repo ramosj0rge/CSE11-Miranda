@@ -1,4 +1,4 @@
-class statementB{
+/*class statementB{
     String testB1;
     int testB1;
 
@@ -25,4 +25,4 @@ class Open1B{
 
     String test32 = test3.numberSequence();
     int test42 = test4.adding();
-}
+} */
