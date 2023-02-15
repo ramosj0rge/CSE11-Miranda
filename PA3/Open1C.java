@@ -21,3 +21,18 @@ class Open1C{
     int testC1 = testC.square(4);
     int testC2 = testC.addition(1);
 }
+/* 
+ * Tester Library v.3.0
+-----------------------------------
+Tests defined in the class: Open1C:
+---------------------------
+Open1C:
+---------------
+new Open1C:1(
+ this.testC = new statementC:2(
+  this.openEnded = 5)
+ this.testC1 = 20
+ this.testC2 = 6)
+---------------
+No test methods found.
+ */

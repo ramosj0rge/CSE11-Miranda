@@ -26,4 +26,16 @@ class Drill4{
         return Math.PI * Math.pow(outer, 2) -  Math.PI * Math.pow(inner, 2);
    }
 
+   String drillTest41 = phaseOfWater(2); //Expected liquid
+   String drillTest42 = phaseOfWater(-1); //Expected Solid
+   String drillTest48 = phaseOfWater(101); //Expected Vapor
+   String drillTest49 = phaseOfWater(1/2); //Interesting Test 1/2 = 0.5 but since it is int 1/2 = 1; so expected liquid
+
+   int drillTest43 = maxDifference(3, 2, 0); //Expected 3
+   int drillTest44 = maxDifference(-10, 50, 1); //Expected 60
+
+   double drillTest45 = ringArea(2, 3);
+   double drillTest46 = ringArea(-2, 0);
+   double drillTest47 = ringArea(-3, 5);
+
 }
