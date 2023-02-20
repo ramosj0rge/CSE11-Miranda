@@ -14,7 +14,7 @@ class C2{
 
 class Drill2{
     C2 first = new C2(10);
-    C2 otherC2; //Check if this is good!
+    C2 otherC2 = new C2(178);
     C1 second = new C1(otherC2);
 
     C1 third = new C1(first);

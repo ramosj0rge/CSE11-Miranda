@@ -8,7 +8,7 @@ class TextTweet{
     }
 
     boolean hasMention(String username){
-        return contents.contains("@" + username);
+        return contents.contains("@" + username + " ") || contents.endsWith("@" + username);
     }
 
     boolean hasLike(){
@@ -48,7 +48,7 @@ class ReplyTweet{
     }
 
     boolean hasMention(String username){
-        return contents.contains("@" + username) || replyTo.contents.contains("@" + username);
+        return ( contents.contains("@" + username + " ") || contents.endsWith("@" + username)) || (replyTo.contents.contains("@" + username) || replyTo.contents.endsWith("@" + username));
     }
 }
 
@@ -63,4 +63,9 @@ class Drill3{
     boolean test12 = this.test1.morePopularReply();
     int test13 = this.test1.allLikes();
     boolean test14 = this.test1.hasMention("laurahowemt");
+
+    TextTweet drillTestj = new TextTweet("@dummy1 @dummy2" ,18);
+    boolean drillTestj2 = this.drillTestj.hasMention("dummy1");
+    
+    
 }

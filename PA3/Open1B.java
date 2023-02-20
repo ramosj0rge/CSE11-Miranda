@@ -1,4 +1,4 @@
-class statementB{
+/*class statementB{
     String testB1;
     int testB1;
 
