@@ -66,7 +66,14 @@ class Fraction implements Number{
         return String.valueOf(n) + "/" + String.valueOf(d);
     }
     public double toDouble(){
-        double temp = n/d;
+        double temp = this.n / this.d;
         return temp;
     }
+}
+
+//Exploration 
+
+class ExamplesNumber{
+    Fraction arithmetic1 = new Fraction(1, 10);
+    double fraction1 = arithmetic1.toDouble();
 }

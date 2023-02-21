@@ -59,6 +59,19 @@ class Tweets{
     boolean test1 = this.testA.isStartOfThreadBy("sosajorge");
     int test2 = this.testA.totalLikes();
     String test3 = this.testA.unrollThread();
+    ReplyTweet testA2 = new ReplyTweet("But it isn't a real tweet", 213, "sosajorge", testA);
+    boolean test4 = this.testA2.isStartOfThreadBy("sosajorge");
+    int test5 = this.testA2.totalLikes();
+    String test6 = this.testA2.unrollThread();
 
     
+    TextTweet testB = new TextTweet("These must come out as false", 2, "anonymoususer");
+    boolean test7 = this.testB.isStartOfThreadBy("adidas");
+    int test8 = this.testA.totalLikes();
+    String test9 = this.testB.unrollThread();
+    ReplyTweet testB2 = new ReplyTweet("So, tell me, does it come out as false?", 23, "notanonymous", testB);
+    boolean test10 = this.testB2.isStartOfThreadBy("anonymoususer");
+    int test11 = this.testB.totalLikes();
+    String test12 = this.testB.unrollThread();
+
 }
