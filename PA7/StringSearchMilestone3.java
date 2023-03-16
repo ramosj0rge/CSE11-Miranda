@@ -18,32 +18,27 @@ class FileHelper {
 }
 class StringSearch{
     static Query readQuery(String q){
-        
+        return null;
 
     }
     public static void main(String[] args) throws IOException{
-        
         String[] contents = FileHelper.getLines(args[0]);  // Array of lines in file
-
-        /*
-         * If only one argument if given
-         */
+        //If only one arguments
+        
         if(args.length == 1){
             // For loop through every index of contents (Lines in file)
             for(int i = 0 ; i < contents.length; i++){
-                // Prints Lines one by one
-                System.out.println(contents[i]);
+                System.out.println(contents[i]); // Prints Lines one by one
             }
         }
+        //If there are two arguments
         else{
-            String[] check = args[1].split("=");
-            //e.g. {"contains", "'This'"}
-            String querycommand = check[1].substring(1, check[1].length()-1);
-            //e.g. This
+            String[] check = args[1].split("="); //e.g. {"contains", "'This'"}
+            String querycommand = check[1].substring(1, check[1].length()-1);  //e.g. This
             ContainsQuery query = new ContainsQuery(querycommand);
             for(int i = 0; i < contents.length; i++){
                 if(query.matches(contents[i])){
-                    System.out.print(contents[i]);
+                    System.out.println(contents[i]); //Prints line(s) containg the word
                 }
             } 
         }
@@ -52,14 +47,70 @@ class StringSearch{
 
 class ContainsQuery implements Query{
     String query;
-
     ContainsQuery(String query){
         this.query = query;
     }
-
     public boolean matches(String s){
         return s.contains(query);
     }
 }
 
-class NotInQuery
+class lengthQuery implements Query{
+    String query;
+    lengthQuery(String query){
+        this.query = query;
+    }
+    public boolean matches(String s){
+        return s.length() == query.length();
+    }
+}
+
+class greaterQuery implements Query{
+    String query;
+    greaterQuery(String query){
+        this.query = query;
+    }
+    public boolean matches(String s){
+        return 
+    }
+}
+
+class lessQuery implements Query{
+    String query;
+    lessQuery(String query){
+        this.query = query;
+    }
+    public boolean matches(String s){
+        return
+    }
+}
+
+class startsQuery implements Query{
+    String query;
+    startsQuery(String query){
+        this.query = query;
+    }
+    public boolean matches(String s){
+        return 
+    }
+}
+
+class endsQuery implements Query{
+    String query;
+    endsQuery(String query){
+        this.query = query;
+    }
+    public boolean matches(String s){
+        return 
+    }
+}
+
+class notQuery implements Query{
+    String query;
+    notQuery(String query){
+        this.query = query;
+    }
+    public boolean matches(String s){
+        return 
+    }
+}

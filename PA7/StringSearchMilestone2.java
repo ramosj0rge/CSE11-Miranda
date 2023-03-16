@@ -34,9 +34,9 @@ class StringSearch{
             ContainsQuery query = new ContainsQuery(queryCheck);
             for(int i = 0; i < contents.length; i++){
                 if(query.matches(contents[i])){
-                    System.out.print(contents[i]);
+                    System.out.println(contents[i]);
                 }
-            } 
+            }
         }
     }
 }
