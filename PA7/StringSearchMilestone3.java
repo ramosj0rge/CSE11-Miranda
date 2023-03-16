@@ -56,32 +56,32 @@ class ContainsQuery implements Query{
 }
 
 class lengthQuery implements Query{
-    String query;
-    lengthQuery(String query){
+    int query;
+    lengthQuery(int query){
         this.query = query;
     }
     public boolean matches(String s){
-        return s.length() == query.length();
+        return s.length() == query;
     }
 }
 
 class greaterQuery implements Query{
-    String query;
-    greaterQuery(String query){
+    int query;
+    greaterQuery(int query){
         this.query = query;
     }
     public boolean matches(String s){
-        return 
+        return s.length() > query;
     }
 }
 
 class lessQuery implements Query{
-    String query;
-    lessQuery(String query){
+    int query;
+    lessQuery(int query){
         this.query = query;
     }
     public boolean matches(String s){
-        return
+        return s.length() < query;
     }
 }
 
@@ -91,7 +91,7 @@ class startsQuery implements Query{
         this.query = query;
     }
     public boolean matches(String s){
-        return 
+        return s.startsWith(query);
     }
 }
 
@@ -101,7 +101,7 @@ class endsQuery implements Query{
         this.query = query;
     }
     public boolean matches(String s){
-        return 
+        return s.endsWith((query));
     }
 }
 
@@ -111,6 +111,6 @@ class notQuery implements Query{
         this.query = query;
     }
     public boolean matches(String s){
-        return 
+        return !s.contains(query);
     }
 }
