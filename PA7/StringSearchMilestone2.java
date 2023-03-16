@@ -26,18 +26,18 @@ class StringSearch{
                 System.out.println(contents[i]);
             }
         }
-        /*
-         * If 2 argments are given
-         */
         else{
-            ContainsQuery query = new ContainsQuery(args[1]);
+            String[] check = args[1].split("=");
+            //e.g. {"contains", "'This'"}
+            String queryCheck = check[1].substring(1, check[1].length()-1);
+            //e.g. This
+            ContainsQuery query = new ContainsQuery(queryCheck);
             for(int i = 0; i < contents.length; i++){
                 if(query.matches(contents[i])){
-                    System.out.println(contents[i]);
+                    System.out.print(contents[i]);
                 }
-            }
+            } 
         }
-        
     }
 }
 
