@@ -18,7 +18,7 @@ class FileHelper {
 }
 class StringSearch{
     static Query readQuery(String q){
-        return null;
+        if(q.
 
     }
     public static void main(String[] args) throws IOException{
@@ -56,32 +56,32 @@ class ContainsQuery implements Query{
 }
 
 class lengthQuery implements Query{
-    int query;
-    lengthQuery(int query){
-        this.query = query;
+    int length;
+    lengthQuery(int length){
+        this.length = length;
     }
     public boolean matches(String s){
-        return s.length() == query;
+        return s.length() == length;
     }
 }
 
 class greaterQuery implements Query{
-    int query;
-    greaterQuery(int query){
-        this.query = query;
+    int length;
+    greaterQuery(int length){
+        this.length = length;
     }
     public boolean matches(String s){
-        return s.length() > query;
+        return s.length() > length;
     }
 }
 
 class lessQuery implements Query{
-    int query;
-    lessQuery(int query){
-        this.query = query;
+    int length;
+    lessQuery(int length){
+        this.length = length;
     }
     public boolean matches(String s){
-        return s.length() < query;
+        return s.length() < length;
     }
 }
 
