@@ -18,7 +18,9 @@ class FileHelper {
 }
 class StringSearch{
     static Query readQuery(String q){
-        if(q.
+        if(q.startsWith("not"){
+            
+        }
 
     }
     public static void main(String[] args) throws IOException{
