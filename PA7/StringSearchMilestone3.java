@@ -18,45 +18,47 @@ class FileHelper {
 }
 class StringSearch{
     static Query readQuery(String q){ 
-        //e.g. "notlength=5" -> ["notlength", "5"]
-        String[] command = q.split("=");
+        String[] word = q.split("=");
         if(q.startsWith("not")){
-            if(command[1].equals("contains")){
+            String[] command = q.substring(4, q.length()-1).split("=");
+            if(command[0].equals("contains")){
                 return new notQuery(new ContainsQuery(command[1].substring(1, command[1].length()-1)));
             }
-            else if(command[1].equals("length")){
+            else if(command[0].equals("length")){
                 return new notQuery(new lengthQuery(Integer.parseInt(command[1])));
             }
-            else if(command[1].equals("greater")){
+            else if(command[0].equals("greater")){
                 return new notQuery(new greaterQuery(Integer.parseInt(command[1])));
             }
-            else if(command[1].equals("less")){
+            else if(command[0].equals("less")){
                 return new notQuery(new lessQuery(Integer.parseInt(command[1])));
             }
-            else if(command[1].equals("starts")){
+            else if(command[0].equals("starts")){
                 return new notQuery(new startsQuery(command[1].substring(1, command[1].length()-1)));
             }
-            else if(command[1].equals("ends")){
+            else if(command[0].equals("ends")){
                 return new notQuery(new endsQuery(command[1].substring(1, command[1].length()-1)));
             }
         }
-        else if(command[1].equals("contains")){
-            return new ContainsQuery(command[1].substring(1, command[1].length()-1));
+        //e.g. "contains='This" -> command = ["contains", 'This']
+        else if(word[0].equals("contains")){
+            return new ContainsQuery(word[1].substring(1, word[1].length()-1));
         }
-        else if(command[1].equals("length")){
-            return new lengthQuery(Integer.parseInt(command[1]));
+        //e.g. "length=7" -> command = ["length", "7"]
+        else if(word[0].equals("length")){
+            return new lengthQuery(Integer.parseInt(word[1]));
         }
-        else if(command[1].equals("greater")){
-            return new greaterQuery(Integer.parseInt(command[1]));
+        else if(word[0].equals("greater")){
+            return new greaterQuery(Integer.parseInt(word[1]));
         }
-        else if(command[1].equals("less")){
-            return new lessQuery(Integer.parseInt(command[1]));
+        else if(word[0].equals("less")){
+            return new lessQuery(Integer.parseInt(word[1]));
         }
-        else if(command[1].equals("starts")){
-            return new startsQuery(command[1].substring(1, command[1].length()-1));
+        else if(word[0].equals("starts")){
+            return new startsQuery(word[1].substring(1, word[1].length()-1));
         }
-        else if(command[1].equals("ends")){
-            return new endsQuery(command[1].substring(1, command[1].length()-1));
+        else if(word[0].equals("ends")){
+            return new endsQuery(word[1].substring(1, word[1].length()-1));
         }
         return null;
         
@@ -72,8 +74,16 @@ class StringSearch{
             }
         }
         //If there are two arguments, run the Query class
+        else if(args.length == 2){
+            for(String line: contents){
+                if(readQuery(args[1]).matches(line)){
+                    System.out.println(line);
+                }
+            }
+            
+        }
         else{
-            System.out.println(readQuery(contents[1]));
+            System.out.println(contents);
         }
     }
 }
@@ -94,7 +104,7 @@ class lengthQuery implements Query{
         this.length = length;
     }
     public boolean matches(String s){
-        return Integer.parseInt(s) == length;
+        return s.length() == length;
     }
 }
 
@@ -104,7 +114,7 @@ class greaterQuery implements Query{
         this.length = length;
     }
     public boolean matches(String s){
-        return Integer.parseInt(s) > length;
+        return s.length() > length;
     }
 }
 
@@ -114,7 +124,7 @@ class lessQuery implements Query{
         this.length = length;
     }
     public boolean matches(String s){
-        return Integer.parseInt(s) < length;
+        return s.length() < length;
     }
 }
 
