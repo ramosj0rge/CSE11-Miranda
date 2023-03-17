@@ -70,11 +70,30 @@ class StringSearch{
     }
 
     static Transform readTransform(String t){
-        String[] transWord = t.split("&");
+        String[] transWord = t.split("=");// "last=10" -> ["last", "10"]
 
-        if(){
-            
+        //upper
+        if(t.equals("upper")){
+            return new upperTransform();
         }
+        else if(t.equals("lower")){
+            return new lowerTransform();
+        }
+        else if(transWord[0].equals("last")){
+            return new lastTransform(Integer.parseInt(transWord[1]));
+        }
+        else if(transWord[0].equals("first")){
+            return new firstTransform(Integer.parseInt(transWord[1]));
+        }
+        //e.g. "replace=i;I" -> ["replace", "'i':'I'"]
+        else if(transWord[0].equals("replace")){
+            String[] splitreplace = transWord[1].split(";"); //["'i'", "'I'"]
+            String original = splitreplace[0].substring(1,splitreplace[0].length()-1);
+            String replacement = splitreplace[1].substring(1,splitreplace[1].length()-1); 
+            //["i", "I"]
+            return new replaceTransform(original, replacement);
+        }
+        return null;
 
     }
     public static void main(String[] args) throws IOException{
@@ -95,6 +114,14 @@ class StringSearch{
                 }
             }
             
+        }
+        //If there are 3 arguments, run the transform class
+        else if(args.length == 3){
+            for(String line : contents){
+                if(readQuery(args[1]).matches(line)){
+                    System.out.println(readTransform(args[2]).transform(line));
+                }
+            }
         }
         else{
             System.out.println(contents);
@@ -216,19 +243,21 @@ class lastTransform implements Transform{
         if(s.length() < last){
             return s;
         }
-        return s.substring(last, s.length()-1);
+        return s.substring(s.length() - last, s.length());
     }
 
 }
 
 class replaceTransform implements Transform{
-    String newC;
+    String org;
+    String newone;
 
-    replaceTransform(String newC){
-        this.newC = newC;
+    replaceTransform(String org, String newone){
+        this.org = org;
+        this.newone = newone;
     }
     public String transform(String s){
-        return s.replace(s, newC);
+        return s.replace(org, newone);
     }
     
 }
