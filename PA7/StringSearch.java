@@ -96,35 +96,62 @@ class StringSearch{
         return null;
 
     }
+
+    static boolean matchesAll(Query[] qs, String s){
+        for(Query queries : qs){
+            if(!queries.matches(s)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static String applyAll(Transform[] ts, String s){
+        for(Transform transforming : ts){
+            s = transforming.transform(s);
+        }
+        return s;
+    }
+
     public static void main(String[] args) throws IOException{
         String[] contents = FileHelper.getLines(args[0]);  // Array of lines in file
         //If only one arguments
-        
-        if(args.length == 1){
+        if(args.length == 0){
+            System.out.println(contents);
+        }
+        else if(args.length == 1){
             // For loop through every index of contents (Lines in file)
             for(int i = 0 ; i < contents.length; i++){
                 System.out.println(contents[i]); // Prints Lines one by one
             }
         }
         //If there are two arguments, run the Query class
-        else if(args.length == 2){
+        else{
+            String[] querys = args[1].split("&");
+            Query[] qs = new  Query[querys.length];
+            for(int i = 0 ; i < querys.length; i ++){
+                qs[i] = readQuery(querys[i]);
+            }
+
+
             for(String line: contents){
-                if(readQuery(args[1]).matches(line)){
-                    System.out.println(line);
+                if(matchesAll(qs, line)){
+                    String output = line;
+                    
+                    if(args.length == 3){
+                        String[] transforms = args[2].split("&");
+                        Transform[] tf = new  Transform[transforms.length];
+                        for(int i = 0 ; i < transforms.length; i ++){
+                            tf[i] = readTransform(transforms[i]);
+                        }
+
+                        output = applyAll(tf, output);
+                    }
+
+                    System.out.println(output);
                 }
             }
             
-        }
-        //If there are 3 arguments, run the transform class
-        else if(args.length == 3){
-            for(String line : contents){
-                if(readQuery(args[1]).matches(line)){
-                    System.out.println(readTransform(args[2]).transform(line));
-                }
-            }
-        }
-        else{
-            System.out.println(contents);
         }
     }
 }
