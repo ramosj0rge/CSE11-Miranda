@@ -17,11 +17,49 @@ class FileHelper {
     }
 }
 class StringSearch{
-    static Query readQuery(String q){
-        if(q.startsWith("not"){
-            
+    static Query readQuery(String q){ 
+        //e.g. "notlength=5" -> ["notlength", "5"]
+        String[] command = q.split("=");
+        if(q.startsWith("not")){
+            if(command[1].equals("contains")){
+                return new notQuery(new ContainsQuery(command[1].substring(1, command[1].length()-1)));
+            }
+            else if(command[1].equals("length")){
+                return new notQuery(new lengthQuery(Integer.parseInt(command[1])));
+            }
+            else if(command[1].equals("greater")){
+                return new notQuery(new greaterQuery(Integer.parseInt(command[1])));
+            }
+            else if(command[1].equals("less")){
+                return new notQuery(new lessQuery(Integer.parseInt(command[1])));
+            }
+            else if(command[1].equals("starts")){
+                return new notQuery(new startsQuery(command[1].substring(1, command[1].length()-1)));
+            }
+            else if(command[1].equals("ends")){
+                return new notQuery(new endsQuery(command[1].substring(1, command[1].length()-1)));
+            }
         }
-
+        else if(command[1].equals("contains")){
+            return new ContainsQuery(command[1].substring(1, command[1].length()-1));
+        }
+        else if(command[1].equals("length")){
+            return new lengthQuery(Integer.parseInt(command[1]));
+        }
+        else if(command[1].equals("greater")){
+            return new greaterQuery(Integer.parseInt(command[1]));
+        }
+        else if(command[1].equals("less")){
+            return new lessQuery(Integer.parseInt(command[1]));
+        }
+        else if(command[1].equals("starts")){
+            return new startsQuery(command[1].substring(1, command[1].length()-1));
+        }
+        else if(command[1].equals("ends")){
+            return new endsQuery(command[1].substring(1, command[1].length()-1));
+        }
+        return null;
+        
     }
     public static void main(String[] args) throws IOException{
         String[] contents = FileHelper.getLines(args[0]);  // Array of lines in file
@@ -33,16 +71,9 @@ class StringSearch{
                 System.out.println(contents[i]); // Prints Lines one by one
             }
         }
-        //If there are two arguments
+        //If there are two arguments, run the Query class
         else{
-            String[] check = args[1].split("="); //e.g. {"contains", "'This'"}
-            String querycommand = check[1].substring(1, check[1].length()-1);  //e.g. This
-            ContainsQuery query = new ContainsQuery(querycommand);
-            for(int i = 0; i < contents.length; i++){
-                if(query.matches(contents[i])){
-                    System.out.println(contents[i]); //Prints line(s) containg the word
-                }
-            } 
+            System.out.println(readQuery(contents[1]));
         }
     }
 }
@@ -63,7 +94,7 @@ class lengthQuery implements Query{
         this.length = length;
     }
     public boolean matches(String s){
-        return s.length() == length;
+        return Integer.parseInt(s) == length;
     }
 }
 
@@ -73,7 +104,7 @@ class greaterQuery implements Query{
         this.length = length;
     }
     public boolean matches(String s){
-        return s.length() > length;
+        return Integer.parseInt(s) > length;
     }
 }
 
@@ -83,7 +114,7 @@ class lessQuery implements Query{
         this.length = length;
     }
     public boolean matches(String s){
-        return s.length() < length;
+        return Integer.parseInt(s) < length;
     }
 }
 
@@ -108,11 +139,15 @@ class endsQuery implements Query{
 }
 
 class notQuery implements Query{
-    String query;
-    notQuery(String query){
+    Query query;
+    
+    notQuery(Query query){
         this.query = query;
     }
     public boolean matches(String s){
-        return !s.contains(query);
+        if(!query.matches(s)){
+            return true;
+        }
+        return false;
     }
 }

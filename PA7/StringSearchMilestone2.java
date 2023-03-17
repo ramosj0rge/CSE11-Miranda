@@ -26,7 +26,7 @@ class StringSearch{
                 System.out.println(contents[i]);
             }
         }
-        else{
+        else if(args.length == 2){
             String[] check = args[1].split("=");
             //e.g. {"contains", "'This'"}
             String queryCheck = check[1].substring(1, check[1].length()-1);
@@ -37,6 +37,9 @@ class StringSearch{
                     System.out.println(contents[i]);
                 }
             }
+        }
+        else{
+            System.out.println(contents);
         }
     }
 }
