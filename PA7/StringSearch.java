@@ -4,7 +4,6 @@ import java.io.IOException;
 interface Query{
     public boolean matches(String s);
 }
-
 interface Transform{
     public String transform(String s);
 
